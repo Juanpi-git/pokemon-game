@@ -55,7 +55,7 @@ export function calcDamage(attackerPok, defenderPok) {
   let effectiveness = calcEffectiveness(attackerPok.type, defenderPok.type);
   let lucky = luck();
   let damage =
-    ((500 * attackerPok.level) / defenderPok.level) * effectiveness * lucky;
+    ((550 * attackerPok.level) / defenderPok.level) * effectiveness * lucky;
   return damage;
 }
 
@@ -88,7 +88,7 @@ export function startGame() {
 }
 
 // FUNCIÓN QUE TERMINA EL JUEGO
-export function endGame() {}
-
-// FUNCIÓN QUE PAUSA EL JUEGO
-export function pauseGame() {}
+export function endGame() {
+  // retorno un array vacío
+  return [];
+}
