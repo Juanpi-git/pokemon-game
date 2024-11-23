@@ -1,5 +1,7 @@
+import { useState } from "react";
+
 // CARD DE CADA POKEMON, JUGADOR O PC
-function Card({ pokemon, onClick }) {
+function Card({ pokemon, onClick, disabled }) {
   return (
     <div className="h-full w-full flex flex-col items-center justify-between">
       <span className="text-white text-2xl font-silkscreen font-bold">
@@ -42,6 +44,7 @@ function Card({ pokemon, onClick }) {
               : "hidden"
           }`}
           onClick={onClick}
+          disabled={disabled}
         >
           Attack!
         </button>

@@ -15,6 +15,8 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [winner, setWinner] = useState("");
   const [attackLog, setAttackLog] = useState([]);
+  const [desktopWidth, setDesktopWidth] = useState(undefined);
+  const [disabledButton, setDisabledButton] = useState(false);
 
   // INSTANCIO LA CLASE AUDIO Y LE PASO LOS AUDIOS DEL ATAQUE DE LOS POKEMONS, DEL GANADOR Y DEL PERDEDOR
   const hitSound = new Audio(punchSound);
@@ -25,6 +27,9 @@ function App() {
   // SETEO EL ESTADO players CON LOS DOS POKS RANDOMS QUE DEVUELVE LA FUNCIÓN startGame
   useEffect(() => {
     setPlayers(startGame());
+    window.addEventListener("resize", () => {
+      setDesktopWidth(window.innerWidth);
+    });
   }, []);
 
   // RECIÉN UNA VEZ QUE CAMBIA isPlaying (CARGA LA PÁGINA DEL JUEGO QUE CONTIENE LAS DOS CARDS DE POKS)
@@ -65,11 +70,15 @@ function App() {
     // cada vez que ataco se escucha
     hitSound.volume = 0.3;
     hitSound.play();
+    // deshabilito el botón de ataque cada vez que ataca la pc
+    setDisabledButton(true);
     // calculo de antemano si el ataque del player va a dejar la vida de la pc en cero
     // si va a ser cero, la pc no ataca más
     if (pc.life - playerDamage > 0) {
       setTimeout(() => {
         pcAttack();
+        // habilito el botón de ataque cada vez que ataca la pc
+        setDisabledButton(false);
       }, 500);
     }
   }
@@ -121,6 +130,7 @@ function App() {
     setPlayer(players[0]);
     setPc(players[1]);
     setAttackLog([]);
+    setDisabledButton(false);
     // EL VOLUMEN ARRANCA EN UN 30%
     winnerSoundRef.current ? (winnerSoundRef.current.volume = 0.2) : false;
     looserSoundRef.current ? (looserSoundRef.current.volume = 0.2) : false;
@@ -128,8 +138,20 @@ function App() {
 
   return (
     <>
-      {/* PANTALLA PARA COMENZAR EL JUEGO */}
-      {!isPlaying && !winner ? (
+      {desktopWidth < 1024 ? (
+        <div
+          className="w-screen h-screen flex justify-center items-center"
+          style={{
+            background: `url(${bgImg})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        >
+          <span className="font-silkscreen text-3xl text-white text-center font-bold">
+            The game is not available for screen width's smaller than 1024px
+          </span>
+        </div>
+      ) : !isPlaying && !winner ? (
         /* si isPlaying y winner son false (no estoy jugando y no hay un ganador)
           me aparece el botón para empezar el juego */
         <div
@@ -165,6 +187,7 @@ function App() {
               // y ahi player es false. Luego se ejecuta en el useEffect al cambiar isPlayer, y ahi es true
               pokemon={player ? player : false}
               onClick={() => playerAttack()}
+              disabled={disabledButton}
             />
           </div>
           {/* LOG CENTRAL DE ATAQUES */}
