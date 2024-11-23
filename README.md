@@ -1,5 +1,5 @@
-# POKEMON GAME
+# POKEMON FIGHT!
 
-There is a basic pókemon fight using react, js and tailwind
+This is a basic pókemon game using react, js and tailwind
 
 Live demo: https://juanPendenza.github.io/pokemon-game
