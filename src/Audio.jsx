@@ -47,33 +47,34 @@ function AudioPlayer() {
         tabIndex={0}
         className="z-[1] flex justify-around items-center p-2 shadow rounded-lg bg-black/35 w-full"
       >
-        <li className="flex flex-row justify-center gap-2">
+        <li className="w-1/2 flex justify-start items-center gap-1">
           {/* BOTÓN PARA DARLE PLAY/PAUSA AL AUDIO */}
           <button
-            className="btn btn-outline w-16 m-1 bg-white/50 hover:bg-white"
+            className="btn btn-outline w-12 bg-white/50 hover:bg-white"
             onClick={playPauseAudio}
           >
             {/* si el audio está en pausa muestra la imagen del triángulo para darle play 
                 y sino muestra los dos palitos para ponerle pausa*/}
             {!audioIsPlaying ? (
-              <img className="w-14" src={playIco} alt="" />
+              <img className="w-full" src={playIco} alt="" />
             ) : (
-              <img className="w-14" src={pauseIco} alt="" />
+              <img className="w-full" src={pauseIco} alt="" />
             )}
           </button>
           {/* BOTÓN PARA DARLE PAUSAR Y VOLVER AL INICIO EL AUDIO */}
           <button
-            className="btn btn-outline w-16 m-1 bg-white/50 hover:bg-white"
+            className="btn btn-outline w-12 bg-white/50 hover:bg-white"
             onClick={stopAudio}
           >
-            <img className="w-14" src={stopIco} alt="" />
+            <img className="w-full" src={stopIco} alt="" />
           </button>
         </li>
         {/* CONTROLADOR DE VOLUMEN */}
-        <li>
-          <div className="flex flex-row justify-center items-center gap-1 bg-white/50 rounded-md p-1">
-            <img src={volumeIco} className="w-10" alt="" />
+        <li className="w-1/2">
+          <div className="h-full flex flex-row justify-center items-center gap-1 bg-white/50 rounded-md p-2">
+            <img src={volumeIco} className="w-8" alt="" />
             <input
+              className="w-full"
               type="range"
               min="0"
               max="1"
